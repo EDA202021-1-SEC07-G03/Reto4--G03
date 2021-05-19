@@ -49,8 +49,35 @@ while True:
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
         print("Cargando información de los archivos ....")
-
+        #------------------------------------------------
+        tracemalloc.start()
+        start_time = getTime()
+        start_memory = getMemory()
+        #***************************************
+        cont = controller.init()
+        #**************************************
+        stop_memory = getMemory()
+        stop_time = getTime()
+        tracemalloc.stop()
+        delta_time = round(stop_time - start_time,2)
+        delta_memory = round(deltaMemory(start_memory, stop_memory),2)
+        print("Tiempo [ms]:",delta_time)
+        print("Memoria [kB]:",delta_memory,)
+        print('-'*80)
     elif int(inputs[0]) == 2:
+        #------------------------------------------------
+        tracemalloc.start()
+        start_time = getTime()
+        start_memory = getMemory()
+        #***************************************
+        controller.loadData(cont,filename,filename2,filename3)
+        #**************************************
+        stop_memory = getMemory()
+        stop_time = getTime()
+        tracemalloc.stop()
+        delta_time = round(stop_time - start_time,2)
+        delta_memory = round(deltaMemory(start_memory, stop_memory),2)
+        #-------------------------------------------------
         pass
 
     else:
