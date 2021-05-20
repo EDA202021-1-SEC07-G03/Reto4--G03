@@ -1,5 +1,7 @@
-#ISIS1225 - Librerias de soporte
-
+#ISIS1225 - Librerias de soporte\
+Req. 2- Felipe Garzon Torres, f.garzon@uniandes.edu.co, 202021161\
+Req. 3- Pablo Ortega Cadavid, p.ortegac@uniandes.edu.co, 202021700
+---
 Este proyecto contiene los Tipos abstractos de datos, estructuras de datos y algoritmos requeridos por el curso ISIS1225-Estructuras de Datos y Algoritmos
 
 -Lib
