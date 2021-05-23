@@ -25,7 +25,13 @@ import sys
 import controller
 from DISClib.ADT import list as lt
 assert cf
-
+from DISClib.ADT import list as lt
+from DISClib.ADT import orderedmap as om
+from DISClib.DataStructures import mapentry as me
+from DISClib.ADT import map as mp
+import datetime
+import time
+import tracemalloc
 
 """
 La vista se encarga de la interacción con el usuario
@@ -36,8 +42,15 @@ operación solicitada
 
 def printMenu():
     print("Bienvenido")
-    print("1- Cargar información en el catálogo")
-    print("2- ")
+    print("1- Inicializar catálogo")
+    print("2- Cargar información en el catálogo ")
+    print("3- Identificar clusteres de información ")
+    print("4- Identificar puntos de conexión críticos ")
+    print("5- Ruta de menor distancia ")
+    print("6- Identificar infraestructura crítica ")
+    print("7- Análisis de fallas ")
+   
+
 
 catalog = None
 
@@ -50,34 +63,52 @@ while True:
     if int(inputs[0]) == 1:
         print("Cargando información de los archivos ....")
         #------------------------------------------------
-        tracemalloc.start()
+        filename='connections.csv'
+        filename2='landing_points.csv'
+        filename3='countries.csv'
+        '''tracemalloc.start()
         start_time = getTime()
-        start_memory = getMemory()
+        start_memory = getMemory()'''
         #***************************************
         cont = controller.init()
         #**************************************
-        stop_memory = getMemory()
+        '''stop_memory = getMemory()
         stop_time = getTime()
         tracemalloc.stop()
         delta_time = round(stop_time - start_time,2)
         delta_memory = round(deltaMemory(start_memory, stop_memory),2)
         print("Tiempo [ms]:",delta_time)
         print("Memoria [kB]:",delta_memory,)
-        print('-'*80)
+        print('-'*80)'''
     elif int(inputs[0]) == 2:
         #------------------------------------------------
-        tracemalloc.start()
+        '''tracemalloc.start()
         start_time = getTime()
-        start_memory = getMemory()
+        start_memory = getMemory()'''
         #***************************************
         controller.loadData(cont,filename,filename2,filename3)
         #**************************************
-        stop_memory = getMemory()
+        '''stop_memory = getMemory()
         stop_time = getTime()
         tracemalloc.stop()
         delta_time = round(stop_time - start_time,2)
-        delta_memory = round(deltaMemory(start_memory, stop_memory),2)
+        delta_memory = round(deltaMemory(start_memory, stop_memory),2)'''
         #-------------------------------------------------
+        pass
+
+    elif int(inputs[0]) == 3:
+        pass
+
+    elif int(inputs[0]) == 4:
+        pass
+
+    elif int(inputs[0]) == 5:
+        pass
+
+    elif int(inputs[0]) == 6:
+        pass
+
+    elif int(inputs[0]) == 7:
         pass
 
     else:

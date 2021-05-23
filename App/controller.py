@@ -23,6 +23,13 @@
 import config as cf
 import model
 import csv
+from DISClib.ADT import list as lt
+from DISClib.ADT import orderedmap as om
+from DISClib.DataStructures import mapentry as me
+from DISClib.ADT import map as mp
+import datetime
+import time
+import tracemalloc
 
 
 """
@@ -41,12 +48,10 @@ def loadData(analyzer, filename, filename2,filename3):
     input_file2 = csv.DictReader(open(filename2, encoding="utf-8"),delimiter=",")
     filename3 = cf.data_dir + filename3
     input_file3 = csv.DictReader(open(filename3, encoding="utf-8"),delimiter=",")
-    hashtags=model.hashtags(input_file2)
-    sentiments=model.sentiments(input_file3)
-    for line in input_file:
-        line['created_at']=(line['created_at'][-8:]).replace(':','')
-        model.add(analyzer,line,hashtags)
-    analyzer['sentiments']=sentiments
+    connection=model.create_graph(analyzer,input_file)
+    landing_points=model.add_landing_point(analyzer,input_file2)
+    countries=model.add_country(analyzer,input_file3)
+
     return analyzer
 # Funciones para la carga de datos
 
