@@ -26,6 +26,7 @@ import controller
 from DISClib.ADT import list as lt
 assert cf
 from DISClib.ADT import list as lt
+from DISClib.ADT.graph import gr
 from DISClib.ADT import orderedmap as om
 from DISClib.DataStructures import mapentry as me
 from DISClib.ADT import map as mp
@@ -86,7 +87,7 @@ while True:
         start_time = getTime()
         start_memory = getMemory()'''
         #***************************************
-        controller.loadData(cont,filename,filename2,filename3)
+        analyzer=controller.loadData(cont,filename,filename2,filename3)
         #**************************************
         '''stop_memory = getMemory()
         stop_time = getTime()
@@ -94,21 +95,48 @@ while True:
         delta_time = round(stop_time - start_time,2)
         delta_memory = round(deltaMemory(start_memory, stop_memory),2)'''
         #-------------------------------------------------
-        pass
+        print("El numero de landing points es de: "+ str(gr.numVertices(analyzer['connections'])))
+        print("El total de conexiones entre landing points es de: "+ str((gr.numEdges(analyzer['connections']))))
+        print("El total de paises es de: " + str(mp.size(analyzer['countries'])))
+        print()
+        
 
+
+    
     elif int(inputs[0]) == 3:
+        #Requerimeinto 1
+
+
+
         pass
 
     elif int(inputs[0]) == 4:
+        #Requerimeinto 2
+
+
+
         pass
 
     elif int(inputs[0]) == 5:
+        #Requerimeinto 3
+
+
+
         pass
 
     elif int(inputs[0]) == 6:
+        #Requerimeinto 4
+
+
+
         pass
 
     elif int(inputs[0]) == 7:
+        #Requerimeinto 5
+
+
+
+
         pass
 
     else:

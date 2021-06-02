@@ -44,13 +44,16 @@ def init():
 def loadData(analyzer, filename, filename2,filename3):
     filename = cf.data_dir + filename
     input_file = csv.DictReader(open(filename, encoding="utf-8"),delimiter=",")
+    
     filename2 = cf.data_dir + filename2
     input_file2 = csv.DictReader(open(filename2, encoding="utf-8"),delimiter=",")
     filename3 = cf.data_dir + filename3
     input_file3 = csv.DictReader(open(filename3, encoding="utf-8"),delimiter=",")
-    connection=model.create_graph(analyzer,input_file)
+    
     landing_points=model.add_landing_point(analyzer,input_file2)
     countries=model.add_country(analyzer,input_file3)
+    connection=model.create_graph(analyzer,input_file)
+    
 
     return analyzer
 # Funciones para la carga de datos
