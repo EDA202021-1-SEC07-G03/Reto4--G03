@@ -61,7 +61,8 @@ def newAnalyzer():
                                               comparefunction=None),
                 'countries':mp.newMap(numelements=480,maptype='PROBING'),
                 'landing': mp.newMap(numelements=480,maptype='PROBING'),
-                'vertices_paises':mp.newMap(numelements=480,maptype='PROBING')
+                'vertices_paises':mp.newMap(numelements=480,maptype='PROBING'),
+                'pais_capital':mp.newMap(numelements=480,maptype='PROBING')
                 
                 }
               
@@ -92,6 +93,9 @@ def add_country(analyzer,file):
         mp.put(value,'Internet users',line['Internet users'])
         mp.put(analyzer['countries'],str(key),value)
         gr.insertVertex(analyzer['connections'],(line['CapitalName'],'1'))
+        key2=line['CapitalName']
+        value2=line['CountryName']
+        mp.put(analyzer['pais_capital'],key2,value2)
     
     
 
@@ -106,6 +110,7 @@ def create_graph(analyzer,file):
      añadir_capitales(analyzer)
      vertices_por_paises(analyzer)
      conexion_lp(analyzer)
+     añadir_capitales_aburridas(analyzer)
 
         
 def vertices_por_paises(analyzer):
@@ -154,29 +159,24 @@ def añadir_capitales(analyzer):
 
 
 def añadir_capitales_aburridas(analyzer):
-    pass
+    vertices = gr.vertices(analyzer['connections'])
+    
+    for i in range(lt.size(vertices)):
+        vertice=(lt.getElement(vertices,i))
+        mas_corto=10000000
+        vertice_mas_cercano=('a',1)
+        if gr.degree(analyzer['connections'],vertice)==0 and len(vertice[0]) > 0:
+            for j in range(lt.size(vertices)):
+                vertice2=(lt.getElement(vertices,j))
+                if mp.contains(analyzer['landing'],(vertice2[0])) == True:
+                    pais=me.getValue(mp.get(analyzer['pais_capital'],vertice[0]))
+                    largo_cable = largo_cables(analyzer,vertice2[0],pais)
+                    if largo_cable < mas_corto:
+                        vertice_mas_cercano = vertice2
+                        mas_corto=largo_cable
+            gr.addEdge(analyzer['connections'],vertice_mas_cercano,vertice,mas_corto)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
+    
 
 def largo_cables(analyzer,vertice,pais):
     interna_vertice=me.getValue(mp.get(analyzer['landing'],vertice))
