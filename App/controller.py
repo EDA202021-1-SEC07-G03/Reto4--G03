@@ -56,8 +56,27 @@ def loadData(analyzer, filename, filename2,filename3):
     
 
     return analyzer
-# Funciones para la carga de datos
+
 
 # Funciones de ordenamiento
 
+
+
 # Funciones de consulta sobre el catálogo
+def clusteres(analyzer,lp1,lp2):
+    return model.clusteres(analyzer,lp1,lp2)
+
+def landing_principales(analyzer):
+    return model.landing_principales(analyzer)
+
+def ruta_minima(analyzer,pais1,pais2):
+    return model.ruta_minima(analyzer,pais1,pais2)
+
+def infraestructura_critica(analyzer):
+    return model.infraestructura_critica(analyzer)
+
+def impacto_fallo(analyzer,lp):
+    return model.impacto_fallo(analyzer,lp)
+
+def ancho_banda(analyzer,pais,cable):
+    return model.ancho_banda(analyzer,pais,cable)

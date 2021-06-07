@@ -50,6 +50,7 @@ def printMenu():
     print("5- Ruta de menor distancia ")
     print("6- Identificar infraestructura crítica ")
     print("7- Análisis de fallas ")
+    print("8- Ancho de banda")
    
 
 
@@ -98,46 +99,96 @@ while True:
         print("El numero de landing points es de: "+ str(gr.numVertices(analyzer['connections'])))
         print("El total de conexiones entre landing points es de: "+ str((gr.numEdges(analyzer['connections']))))
         print("El total de paises es de: " + str(mp.size(analyzer['countries'])))
-        print()
-        
-
+        interno=me.getValue(mp.get(analyzer['landing'],'3316'))
+        nombre=me.getValue(mp.get(interno,'name'))
+        longitud=me.getValue(mp.get(interno,'longitude'))
+        latitud=me.getValue(mp.get(interno,'latitude'))
+        print('El primer landing point cargado es: codigo: 3316  nombre: ' + nombre + '  longitud: ' + longitud + '  latitud: ' + latitud )
+        pais=lt.getElement(mp.keySet(analyzer['countries']),-1)
+        interno2=me.getValue(mp.get(analyzer['countries'],pais))
+        poblacion=me.getValue(mp.get(interno2,'Population'))
+        usuarios=me.getValue(mp.get(interno2,'Internet users'))
+        print('El último país cargado es ' + pais + ' con una población de ' + poblacion + ' y ' + usuarios + ' usuarios de internet.')
 
     
     elif int(inputs[0]) == 3:
-        #Requerimeinto 1
+        #Requerimiento 1
+        lp1=str(input('Ingrese el landing point 1: '))
+        lp2=str(input('Ingrese el landing point 2: '))
 
+        clusteres=controller.clusteres(analyzer,lp1,lp2)
+        
+        print('La cantidad de clusteres en el grafo es de: ' + str(clusteres[0]))
+        print('El landing point ' + lp1 + ' y el landing point ' + lp2 + ' estan en el mismo cluster: '+str(clusteres[1]))
 
-
-        pass
 
     elif int(inputs[0]) == 4:
-        #Requerimeinto 2
+        #Requerimiento 2
+        lp=controller.landing_principales(analyzer)
+        print('El landing point que sirve de interconexión a más cables en la red es '+ str(lp[0])+ ' con ' +str(lp[1])+' conexiones')
 
 
-
-        pass
 
     elif int(inputs[0]) == 5:
-        #Requerimeinto 3
+        #Requerimiento 3
+        pais1=input('Ingrese el pais origen: ')
+        pais2=input('Ingrese el pais destino: ')
+        ruta=controller.ruta_minima(analyzer,pais1,pais2)
+
+        print('El camino entre los paises es: ')
+
+        for i in range(1,lt.size(ruta[0])+1):
+            print(str(i+1)+'.  Vertice 1: ' +str(lt.getElement(ruta[0],i)['vertexA'])+ ' Vertice 2: ' + str(lt.getElement(ruta[0],i)['vertexB'])+ ' Distancia: '+ str(lt.getElement(ruta[0],i)['weight'])+ ' km')
+
+        print('El camino es de '+str(ruta[1])+' km  de largo.')
+        
 
 
-
-        pass
 
     elif int(inputs[0]) == 6:
-        #Requerimeinto 4
+        #Requerimiento 4
+        infraestructura=controller.infraestructura_critica(analyzer)
+
+        
+        print('El numero de nodos conectados a la red de expansión mínima es de: '+ str(infraestructura[0]))
+        print('El largo total de la red de expansión mínima es de: '+ str(infraestructura[1])+' km')
+
+
+    
 
 
 
-        pass
 
     elif int(inputs[0]) == 7:
-        #Requerimeinto 5
+        #Requerimiento 5
+        lp=input('Introduzca el vertice que falla: ')
+        impacto=controller.impacto_fallo(analyzer,lp)
+
+        for i in range(1,lt.size(impacto[0])+1):
+            tupla=lt.getElement(impacto[0],i)
+            print('Pais: ' + tupla[0] + ' ||   Distancia: ' + str(tupla[1])+ 'km')
+            
+        
+        print('El numero de paises afectados es de: ' + str(impacto[1]))
+    
+    elif int(inputs[0]) == 8:
+        #Requerimiento 6
+        pais=input('Ingrese el pais de su interés: ')
+        cable=input('Ingrese el cable de su interés: ')
+
+        ancho=controller.ancho_banda(analyzer,pais,cable)
+
+        print('El ancho de banda en '+ pais + ' con el cable ' + cable+ ' desde: ')
+        
+        for i in range(1,lt.size(ancho)+1):
+            pais=lt.getElement(ancho,i)
+            print(pais[0]+' es de: '+str(pais[1])+' mbps')
+        
 
 
 
 
-        pass
+        
 
     else:
         sys.exit(0)
