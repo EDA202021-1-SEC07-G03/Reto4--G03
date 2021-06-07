@@ -68,33 +68,33 @@ while True:
         filename='connections.csv'
         filename2='landing_points.csv'
         filename3='countries.csv'
-        '''tracemalloc.start()
+        tracemalloc.start()
         start_time = getTime()
-        start_memory = getMemory()'''
+        start_memory = getMemory()
         #***************************************
         cont = controller.init()
         #**************************************
-        '''stop_memory = getMemory()
+        stop_memory = getMemory()
         stop_time = getTime()
         tracemalloc.stop()
         delta_time = round(stop_time - start_time,2)
         delta_memory = round(deltaMemory(start_memory, stop_memory),2)
         print("Tiempo [ms]:",delta_time)
         print("Memoria [kB]:",delta_memory,)
-        print('-'*80)'''
+        print('-'*80)
     elif int(inputs[0]) == 2:
         #------------------------------------------------
-        '''tracemalloc.start()
+        tracemalloc.start()
         start_time = getTime()
-        start_memory = getMemory()'''
+        start_memory = getMemory()
         #***************************************
         analyzer=controller.loadData(cont,filename,filename2,filename3)
         #**************************************
-        '''stop_memory = getMemory()
+        stop_memory = getMemory()
         stop_time = getTime()
         tracemalloc.stop()
         delta_time = round(stop_time - start_time,2)
-        delta_memory = round(deltaMemory(start_memory, stop_memory),2)'''
+        delta_memory = round(deltaMemory(start_memory, stop_memory),2)
         #-------------------------------------------------
         print("El numero de landing points es de: "+ str(gr.numVertices(analyzer['connections'])))
         print("El total de conexiones entre landing points es de: "+ str((gr.numEdges(analyzer['connections']))))
@@ -113,27 +113,63 @@ while True:
     
     elif int(inputs[0]) == 3:
         #Requerimiento 1
+        start_time = getTime()
+        start_memory = getMemory()
+        #***************************************
         lp1=str(input('Ingrese el landing point 1: '))
         lp2=str(input('Ingrese el landing point 2: '))
-
         clusteres=controller.clusteres(analyzer,lp1,lp2)
+        #**************************************
+        stop_memory = getMemory()
+        stop_time = getTime()
+        tracemalloc.stop()
+        delta_time = round(stop_time - start_time,2)
+        delta_memory = round(deltaMemory(start_memory, stop_memory),2)
+        
+        
         
         print('La cantidad de clusteres en el grafo es de: ' + str(clusteres[0]))
         print('El landing point ' + lp1 + ' y el landing point ' + lp2 + ' estan en el mismo cluster: '+str(clusteres[1]))
-
+        print("Tiempo [ms]:",delta_time)
+        print("Memoria [kB]:",delta_memory,)
+        print('-'*80)
 
     elif int(inputs[0]) == 4:
         #Requerimiento 2
+        start_time = getTime()
+        start_memory = getMemory()
+        #***************************************
         lp=controller.landing_principales(analyzer)
+        #**************************************
+        stop_memory = getMemory()
+        stop_time = getTime()
+        tracemalloc.stop()
+        delta_time = round(stop_time - start_time,2)
+        delta_memory = round(deltaMemory(start_memory, stop_memory),2)
         print('El landing point que sirve de interconexión a más cables en la red es '+ str(lp[0])+ ' con ' +str(lp[1])+' conexiones')
+        print("Tiempo [ms]:",delta_time)
+        print("Memoria [kB]:",delta_memory,)
+        print('-'*80)
+        
 
 
 
     elif int(inputs[0]) == 5:
         #Requerimiento 3
+        start_time = getTime()
+        start_memory = getMemory()
+        #***************************************
         pais1=input('Ingrese el pais origen: ')
         pais2=input('Ingrese el pais destino: ')
         ruta=controller.ruta_minima(analyzer,pais1,pais2)
+        #**************************************
+        stop_memory = getMemory()
+        stop_time = getTime()
+        tracemalloc.stop()
+        delta_time = round(stop_time - start_time,2)
+        delta_memory = round(deltaMemory(start_memory, stop_memory),2)
+        
+        
 
         print('El camino entre los paises es: ')
 
@@ -141,18 +177,32 @@ while True:
             print(str(i+1)+'.  Vertice 1: ' +str(lt.getElement(ruta[0],i)['vertexA'])+ ' Vertice 2: ' + str(lt.getElement(ruta[0],i)['vertexB'])+ ' Distancia: '+ str(lt.getElement(ruta[0],i)['weight'])+ ' km')
 
         print('El camino es de '+str(ruta[1])+' km  de largo.')
-        
+        print("Tiempo [ms]:",delta_time)
+        print("Memoria [kB]:",delta_memory,)
+        print('-'*80)
 
 
 
     elif int(inputs[0]) == 6:
         #Requerimiento 4
+        start_time = getTime()
+        start_memory = getMemory()
+        #***************************************
         infraestructura=controller.infraestructura_critica(analyzer)
+        #**************************************
+        stop_memory = getMemory()
+        stop_time = getTime()
+        tracemalloc.stop()
+        delta_time = round(stop_time - start_time,2)
+        delta_memory = round(deltaMemory(start_memory, stop_memory),2)
+        
 
         
         print('El numero de nodos conectados a la red de expansión mínima es de: '+ str(infraestructura[0]))
         print('El largo total de la red de expansión mínima es de: '+ str(infraestructura[1])+' km')
-
+        print("Tiempo [ms]:",delta_time)
+        print("Memoria [kB]:",delta_memory,)
+        print('-'*80)
 
     
 
@@ -161,8 +211,19 @@ while True:
 
     elif int(inputs[0]) == 7:
         #Requerimiento 5
+        start_time = getTime()
+        start_memory = getMemory()
+        #***************************************
         lp=input('Introduzca el vertice que falla: ')
         impacto=controller.impacto_fallo(analyzer,lp)
+        #**************************************
+        stop_memory = getMemory()
+        stop_time = getTime()
+        tracemalloc.stop()
+        delta_time = round(stop_time - start_time,2)
+        delta_memory = round(deltaMemory(start_memory, stop_memory),2)
+        
+        
 
         for i in range(1,lt.size(impacto[0])+1):
             tupla=lt.getElement(impacto[0],i)
@@ -170,19 +231,34 @@ while True:
             
         
         print('El numero de paises afectados es de: ' + str(impacto[1]))
+        print("Tiempo [ms]:",delta_time)
+        print("Memoria [kB]:",delta_memory,)
+        print('-'*80)
     
     elif int(inputs[0]) == 8:
         #Requerimiento 6
         pais=input('Ingrese el pais de su interés: ')
         cable=input('Ingrese el cable de su interés: ')
-
+        start_time = getTime()
+        start_memory = getMemory()
+        #***************************************
         ancho=controller.ancho_banda(analyzer,pais,cable)
+        #**************************************
+        stop_memory = getMemory()
+        stop_time = getTime()
+        tracemalloc.stop()
+        delta_time = round(stop_time - start_time,2)
+        delta_memory = round(deltaMemory(start_memory, stop_memory),2)
+        
 
         print('El ancho de banda en '+ pais + ' con el cable ' + cable+ ' desde: ')
         
         for i in range(1,lt.size(ancho)+1):
             pais=lt.getElement(ancho,i)
             print(pais[0]+' es de: '+str(pais[1])+' mbps')
+        print("Tiempo [ms]:",delta_time)
+        print("Memoria [kB]:",delta_memory,)
+        print('-'*80)
         
 
 
