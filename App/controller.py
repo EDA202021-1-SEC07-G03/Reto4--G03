@@ -44,17 +44,39 @@ def init():
 def loadData(analyzer, filename, filename2,filename3):
     filename = cf.data_dir + filename
     input_file = csv.DictReader(open(filename, encoding="utf-8"),delimiter=",")
+    
     filename2 = cf.data_dir + filename2
     input_file2 = csv.DictReader(open(filename2, encoding="utf-8"),delimiter=",")
     filename3 = cf.data_dir + filename3
     input_file3 = csv.DictReader(open(filename3, encoding="utf-8"),delimiter=",")
-    connection=model.create_graph(analyzer,input_file)
+    
     landing_points=model.add_landing_point(analyzer,input_file2)
     countries=model.add_country(analyzer,input_file3)
+    connection=model.create_graph(analyzer,input_file)
+    
 
     return analyzer
-# Funciones para la carga de datos
+
 
 # Funciones de ordenamiento
 
+
+
 # Funciones de consulta sobre el catálogo
+def clusteres(analyzer,lp1,lp2):
+    return model.clusteres(analyzer,lp1,lp2)
+
+def landing_principales(analyzer):
+    return model.landing_principales(analyzer)
+
+def ruta_minima(analyzer,pais1,pais2):
+    return model.ruta_minima(analyzer,pais1,pais2)
+
+def infraestructura_critica(analyzer):
+    return model.infraestructura_critica(analyzer)
+
+def impacto_fallo(analyzer,lp):
+    return model.impacto_fallo(analyzer,lp)
+
+def ancho_banda(analyzer,pais,cable):
+    return model.ancho_banda(analyzer,pais,cable)
