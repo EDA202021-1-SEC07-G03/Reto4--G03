@@ -33,6 +33,17 @@ from DISClib.ADT import map as mp
 import datetime
 import time
 import tracemalloc
+def getTime():
+    return float(time.perf_counter()*1000)
+def getMemory():
+    return tracemalloc.take_snapshot()
+def deltaMemory(start_memory, stop_memory):
+    memory_diff = stop_memory.compare_to(start_memory, "filename")
+    delta_memory = 0.0
+    for stat in memory_diff:
+        delta_memory = delta_memory + stat.size_diff
+    delta_memory = delta_memory/1024.0
+    return delta_memory
 
 """
 La vista se encarga de la interacción con el usuario
@@ -109,10 +120,13 @@ while True:
         poblacion=me.getValue(mp.get(interno2,'Population'))
         usuarios=me.getValue(mp.get(interno2,'Internet users'))
         print('El último país cargado es ' + pais + ' con una población de ' + poblacion + ' y ' + usuarios + ' usuarios de internet.')
-
+        print("Tiempo [ms]:",delta_time)
+        print("Memoria [kB]:",delta_memory,)
+        print('-'*80)
     
     elif int(inputs[0]) == 3:
         #Requerimiento 1
+        tracemalloc.start()
         start_time = getTime()
         start_memory = getMemory()
         #***************************************
@@ -125,9 +139,6 @@ while True:
         tracemalloc.stop()
         delta_time = round(stop_time - start_time,2)
         delta_memory = round(deltaMemory(start_memory, stop_memory),2)
-        
-        
-        
         print('La cantidad de clusteres en el grafo es de: ' + str(clusteres[0]))
         print('El landing point ' + lp1 + ' y el landing point ' + lp2 + ' estan en el mismo cluster: '+str(clusteres[1]))
         print("Tiempo [ms]:",delta_time)
@@ -136,6 +147,7 @@ while True:
 
     elif int(inputs[0]) == 4:
         #Requerimiento 2
+        tracemalloc.start()
         start_time = getTime()
         start_memory = getMemory()
         #***************************************
@@ -151,11 +163,9 @@ while True:
         print("Memoria [kB]:",delta_memory,)
         print('-'*80)
         
-
-
-
     elif int(inputs[0]) == 5:
         #Requerimiento 3
+        tracemalloc.start()
         start_time = getTime()
         start_memory = getMemory()
         #***************************************
@@ -168,23 +178,17 @@ while True:
         tracemalloc.stop()
         delta_time = round(stop_time - start_time,2)
         delta_memory = round(deltaMemory(start_memory, stop_memory),2)
-        
-        
-
         print('El camino entre los paises es: ')
-
         for i in range(1,lt.size(ruta[0])+1):
             print(str(i+1)+'.  Vertice 1: ' +str(lt.getElement(ruta[0],i)['vertexA'])+ ' Vertice 2: ' + str(lt.getElement(ruta[0],i)['vertexB'])+ ' Distancia: '+ str(lt.getElement(ruta[0],i)['weight'])+ ' km')
-
         print('El camino es de '+str(ruta[1])+' km  de largo.')
         print("Tiempo [ms]:",delta_time)
         print("Memoria [kB]:",delta_memory,)
         print('-'*80)
 
-
-
     elif int(inputs[0]) == 6:
         #Requerimiento 4
+        tracemalloc.start()
         start_time = getTime()
         start_memory = getMemory()
         #***************************************
@@ -195,22 +199,15 @@ while True:
         tracemalloc.stop()
         delta_time = round(stop_time - start_time,2)
         delta_memory = round(deltaMemory(start_memory, stop_memory),2)
-        
-
-        
         print('El numero de nodos conectados a la red de expansión mínima es de: '+ str(infraestructura[0]))
         print('El largo total de la red de expansión mínima es de: '+ str(infraestructura[1])+' km')
         print("Tiempo [ms]:",delta_time)
         print("Memoria [kB]:",delta_memory,)
         print('-'*80)
 
-    
-
-
-
-
     elif int(inputs[0]) == 7:
         #Requerimiento 5
+        tracemalloc.start()
         start_time = getTime()
         start_memory = getMemory()
         #***************************************
@@ -221,15 +218,11 @@ while True:
         stop_time = getTime()
         tracemalloc.stop()
         delta_time = round(stop_time - start_time,2)
-        delta_memory = round(deltaMemory(start_memory, stop_memory),2)
+        delta_memory = round(deltaMemory(start_memory, stop_memory),2)    
         
-        
-
         for i in range(1,lt.size(impacto[0])+1):
             tupla=lt.getElement(impacto[0],i)
             print('Pais: ' + tupla[0] + ' ||   Distancia: ' + str(tupla[1])+ 'km')
-            
-        
         print('El numero de paises afectados es de: ' + str(impacto[1]))
         print("Tiempo [ms]:",delta_time)
         print("Memoria [kB]:",delta_memory,)
@@ -237,6 +230,7 @@ while True:
     
     elif int(inputs[0]) == 8:
         #Requerimiento 6
+        tracemalloc.start()
         pais=input('Ingrese el pais de su interés: ')
         cable=input('Ingrese el cable de su interés: ')
         start_time = getTime()
@@ -249,10 +243,7 @@ while True:
         tracemalloc.stop()
         delta_time = round(stop_time - start_time,2)
         delta_memory = round(deltaMemory(start_memory, stop_memory),2)
-        
-
         print('El ancho de banda en '+ pais + ' con el cable ' + cable+ ' desde: ')
-        
         for i in range(1,lt.size(ancho)+1):
             pais=lt.getElement(ancho,i)
             print(pais[0]+' es de: '+str(pais[1])+' mbps')
@@ -260,12 +251,6 @@ while True:
         print("Memoria [kB]:",delta_memory,)
         print('-'*80)
         
-
-
-
-
-        
-
     else:
         sys.exit(0)
 sys.exit(0)
